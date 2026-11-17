@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{base_tag}}<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+{{robots}}<link rel="canonical" href="{{canonical}}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Eric Almaraz">
+<meta property="og:title" content="{{og_title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{canonical}}">
+<meta property="og:image" content="{{site}}/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f3b63a">
+<link rel="icon" href="{{root}}favicon.svg" type="image/svg+xml">
+<link rel="preload" href="{{root}}assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{root}}assets/site.css">
+<script>(function(){var d=document.documentElement,p=null;try{p=localStorage.getItem('ea-motion')}catch(e){}var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;d.className+=' js '+((p?p==='on':!r)?'motion':'calm');})();</script>
+</head>
+<body class="{{class}}">
+<a class="skip" href="{{self}}#main">{{skip_label}}</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7.500 12 3l9 4.500v9L12 21l-9-4.500zM3 7.500l9 4.500 9-4.500M12 12v9" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-bubble" viewBox="0 0 24 24"><path d="M4 5h16v11H11l-5 4v-4H4z" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.500 21.500 20h-19zM12 10v4.500M12 17v.500" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2.500l2.400 7.100 7.100 2.400-7.100 2.400L12 21.500l-2.400-7.100L2.500 12l7.100-2.400z" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6.500L21 7" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="wrap masthead">
+  <p class="name"><a href="{{root}}index.html">Eric Almaraz</a><small>Director of Operations, Central Texas</small></p>
+  <nav aria-label="Site">
+    <ul>
+      <li><a href="{{root}}index.html#work">Work</a></li>
+      <li><a href="{{root}}about.html">About</a></li>
+      <li><a href="{{self}}#contact">Contact</a></li>
+      <li><button type="button" class="motion-toggle" data-motion-toggle hidden>Play with motion</button></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+{{body}}
+</main>
+
+<footer class="colophon" id="contact">
+  <div class="wrap">
+    <div class="row">
+      <p class="big">Want the full walkthrough?</p>
+      <ul>
+        <li><a class="cta" href="https://www.linkedin.com/in/eric-almaraz-40717122" rel="me noopener">Message me on LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="fine">Company, brand and customer names are left out on purpose. I am glad to go through any of this in detail in an interview. Each case study says when its figures were counted. Updated {{updated}}.</p>
+    <ul class="foot-nav">
+      <li><a href="{{root}}index.html">Home</a></li>
+      <li><a href="{{root}}index.html#work">The five systems</a></li>
+      <li><a href="{{root}}about.html">About</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="{{root}}assets/site.js" defer></script>
+{{scripts}}</body>
+</html>

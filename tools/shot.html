@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- Screenshot helper, not part of the site. Frames one built page at a chosen width and can
+     ask it for a motion mode or a demo state through postMessage.
+     Example: shot.html?page=index.html&w=390&h=4200&motion=off&state=mid -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>shot</title>
+<style>html, body { margin: 0; background: #fff; } iframe { display: block; border: 0; }</style>
+</head>
+<body>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var f = document.createElement('iframe');
+  f.style.width = (q.get('w') || 1440) + 'px';
+  f.style.height = (q.get('h') || 900) + 'px';
+  f.src = '../docs/' + (q.get('page') || 'index.html');
+  f.addEventListener('load', function () {
+    var msg = { ea: {} };
+    if (q.get('motion')) msg.ea.motion = q.get('motion');
+    f.contentWindow.postMessage(msg, '*');
+    if (q.get('state')) setTimeout(function () { f.contentWindow.postMessage({ ea: { state: q.get('state') } }, '*'); }, 300);
+  });
+  document.body.appendChild(f);
+})();
+</script>
+</body>
+</html>

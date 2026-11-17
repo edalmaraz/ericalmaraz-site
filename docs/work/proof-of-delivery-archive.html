@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proof-of-delivery archive, a case study by Eric Almaraz</title>
+<meta name="description" content="How a read-only archive put delivery proof on file for every order, with all 2,008 retail purchase orders matched to a shipment record.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://ericalmaraz.com/work/proof-of-delivery-archive.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Eric Almaraz">
+<meta property="og:title" content="Delivery proof on file for every order, before anyone asks">
+<meta property="og:description" content="How a read-only archive put delivery proof on file for every order, with all 2,008 retail purchase orders matched to a shipment record.">
+<meta property="og:url" content="https://ericalmaraz.com/work/proof-of-delivery-archive.html">
+<meta property="og:image" content="https://ericalmaraz.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f3b63a">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<script>(function(){var d=document.documentElement,p=null;try{p=localStorage.getItem('ea-motion')}catch(e){}var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;d.className+=' js '+((p?p==='on':!r)?'motion':'calm');})();</script>
+</head>
+<body class="case c0">
+<a class="skip" href="#main">Skip to the case study</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7.500 12 3l9 4.500v9L12 21l-9-4.500zM3 7.500l9 4.500 9-4.500M12 12v9" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-bubble" viewBox="0 0 24 24"><path d="M4 5h16v11H11l-5 4v-4H4z" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.500 21.500 20h-19zM12 10v4.500M12 17v.500" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2.500l2.400 7.100 7.100 2.400-7.100 2.400L12 21.500l-2.400-7.100L2.500 12l7.100-2.400z" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6.500L21 7" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="wrap masthead">
+  <p class="name"><a href="../index.html">Eric Almaraz</a><small>Director of Operations, Central Texas</small></p>
+  <nav aria-label="Site">
+    <ul>
+      <li><a href="../index.html#work">Work</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><button type="button" class="motion-toggle" data-motion-toggle hidden>Play with motion</button></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+<section class="wrap case-top">
+    <p class="crumb"><a href="../index.html#work">Five systems</a>, case study 1 of 5, operations systems</p>
+    <h1>Delivery proof is on file for every order, before anyone asks.</h1>
+    <p class="lede">A carrier's proof of delivery expired before a wholesale buyer requested it. I built an archive so that cannot happen again. On its first full run, all 2,008 retail purchase orders matched a shipment record.</p>
+  </section>
+
+  <div class="wrap">
+    <ul class="facts">
+      <li><b>My role</b><span>I wrote the specification and set the rules. AI agents wrote the code and tests.</span></li>
+      <li><b>In service</b><span>Since October 2026</span></li>
+      <li><b>Setting</b><span>Multi-brand consumer goods: wholesale, retail and direct orders</span></li>
+    </ul>
+
+    <section class="panel">
+      <h2>The situation</h2>
+      <div>
+        <p>Proof that a package arrived lives with the carrier, and carriers keep it for a limited time. Wholesale and retail customers can raise a dispute long after delivery. On one order, the carrier's record had already expired when the buyer asked for it.</p>
+
+        <div class="demo expiry" id="expiry">
+          <label for="exp-range">Drag to move time forward from the delivery</label>
+          <output id="exp-out" for="exp-range">Delivery day</output>
+          <input type="range" id="exp-range" min="0" max="100" value="0" step="1">
+          <div class="ends" aria-hidden="true"><span>delivery day</span><span>long after</span></div>
+          <div class="pair">
+            <div class="doc carrier" id="exp-carrier"><b>The carrier's record</b><span id="exp-carrier-s">Kept for a limited time, then gone</span></div>
+            <div class="doc archive"><b>The archive folder</b><span>On file, with the proof-of-delivery PDF</span></div>
+          </div>
+          <p class="ask" id="exp-ask" role="status" aria-live="polite"></p>
+          <p class="scale-note">An illustration, not to scale. The carrier's copy expires, and the archive's copy does not.</p>
+        </div>
+
+        <p>The facts about an order were also spread across the store, the shipping platform, inventory and the retailer purchase orders that arrive over EDI. Answering "what happened to this order?" meant visiting each one.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>My part, and the agents' part</h2>
+      <div>
+        <p>I wrote the specification and set the rules: the archive may read from every system and write to none of them, and it has to stay inside a daily request budget for each source. AI coding agents wrote the code and the tests to that specification.</p>
+        <p>I decided what "finished" meant, then checked the result against real orders before trusting it.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>What I built</h2>
+      <div>
+        <figure class="flow">
+          <div class="flow-grid">
+            <div class="flow-col">
+              <div class="node a"><b>Shipping platform</b>labels and delivery status</div>
+              <div class="node b"><b>Order records</b>a read-only copy</div>
+              <div class="node c"><b>Retailer purchase orders</b>EDI documents and dropped PDFs</div>
+            </div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="node core"><b>Collector</b>runs every 15 minutes, inside a request budget, and backs off on errors</div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="flow-col">
+              <div class="node"><b>One folder per order</b>order record, proof-of-delivery PDF, raw evidence</div>
+              <div class="node"><b>Search index</b>backed up every night</div>
+            </div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="node out"><b>Search page</b>find any order by channel or delivery status</div>
+          </div>
+          <figcaption>Three sources go in, one collector files them, and the search page only reads what the collector wrote.</figcaption>
+        </figure>
+        <ul class="plain">
+          <li>An internal order record: the life of the order on one page, with its status and its EDI documents in a timeline.</li>
+          <li>A proof-of-delivery PDF that can be sent to a customer and carries only the brand's name.</li>
+          <li>The raw evidence: shipment records, label files and status snapshots.</li>
+          <li>A search page with plain status words, such as "In transit" or "No delivery scan", and filters for wholesale, retail, direct and marketplace orders.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>The result</h2>
+      <div>
+        <ul class="tally">
+          <li><b>2,008 of 2,008</b><span>retail purchase orders matched to a shipment record</span></li>
+          <li><b>66,910</b><span>orders filed on the first full run, covering 56,334 packages</span></li>
+          <li><b>0 missing</b><span>order records when 25,315 tracked orders were reconciled against the source</span></li>
+        </ul>
+        <p><b>How this was counted.</b> By the archive's own audit on its first full run, 27 October 2026. The collector and its nightly backup were both reporting healthy on 16 November 2026.</p>
+        <p><b>Not measured.</b> Hours saved, or the number of disputes settled with a document from the archive. I would rather leave those blank than estimate them.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Limits and what is next</h2>
+      <div>
+        <p>Direct connections to the carriers are still waiting on credentials, so some proofs are added by hand, by dropping a PDF into an inbox folder that the collector files. Connecting the carriers directly is the next step.</p>
+        <p class="stack">Built with Python, FastAPI, SQLite, the ShipStation API and generated PDFs.</p>
+      </div>
+    </section>
+
+    <div class="next-case">
+      <a class="next" href="support-escalation-sweep.html"><small>Next, case study 2 of 5</small><b>Support escalation sweep</b></a>
+      <a href="../index.html#work">Back to all five systems</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="colophon" id="contact">
+  <div class="wrap">
+    <div class="row">
+      <p class="big">Want the full walkthrough?</p>
+      <ul>
+        <li><a class="cta" href="https://www.linkedin.com/in/eric-almaraz-40717122" rel="me noopener">Message me on LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="fine">Company, brand and customer names are left out on purpose. I am glad to go through any of this in detail in an interview. Each case study says when its figures were counted. Updated 16 November 2026.</p>
+    <ul class="foot-nav">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#work">The five systems</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../assets/site.js" defer></script>
+<script src="../assets/work.js" defer></script>
+</body>
+</html>

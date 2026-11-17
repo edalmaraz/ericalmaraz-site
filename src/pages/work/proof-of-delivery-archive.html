@@ -1,0 +1,108 @@
+<!--
+title: Proof-of-delivery archive, a case study by Eric Almaraz
+description: How a read-only archive put delivery proof on file for every order, with all 2,008 retail purchase orders matched to a shipment record.
+og_title: Delivery proof on file for every order, before anyone asks
+class: case c0
+skip: Skip to the case study
+scripts: work.js
+-->
+  <section class="wrap case-top">
+    <p class="crumb"><a href="../index.html#work">Five systems</a>, case study 1 of 5, operations systems</p>
+    <h1>Delivery proof is on file for every order, before anyone asks.</h1>
+    <p class="lede">A carrier's proof of delivery expired before a wholesale buyer requested it. I built an archive so that cannot happen again. On its first full run, all 2,008 retail purchase orders matched a shipment record.</p>
+  </section>
+
+  <div class="wrap">
+    <ul class="facts">
+      <li><b>My role</b><span>I wrote the specification and set the rules. AI agents wrote the code and tests.</span></li>
+      <li><b>In service</b><span>Since October 2026</span></li>
+      <li><b>Setting</b><span>Multi-brand consumer goods: wholesale, retail and direct orders</span></li>
+    </ul>
+
+    <section class="panel">
+      <h2>The situation</h2>
+      <div>
+        <p>Proof that a package arrived lives with the carrier, and carriers keep it for a limited time. Wholesale and retail customers can raise a dispute long after delivery. On one order, the carrier's record had already expired when the buyer asked for it.</p>
+
+        <div class="demo expiry" id="expiry">
+          <label for="exp-range">Drag to move time forward from the delivery</label>
+          <output id="exp-out" for="exp-range">Delivery day</output>
+          <input type="range" id="exp-range" min="0" max="100" value="0" step="1">
+          <div class="ends" aria-hidden="true"><span>delivery day</span><span>long after</span></div>
+          <div class="pair">
+            <div class="doc carrier" id="exp-carrier"><b>The carrier's record</b><span id="exp-carrier-s">Kept for a limited time, then gone</span></div>
+            <div class="doc archive"><b>The archive folder</b><span>On file, with the proof-of-delivery PDF</span></div>
+          </div>
+          <p class="ask" id="exp-ask" role="status" aria-live="polite"></p>
+          <p class="scale-note">An illustration, not to scale. The carrier's copy expires, and the archive's copy does not.</p>
+        </div>
+
+        <p>The facts about an order were also spread across the store, the shipping platform, inventory and the retailer purchase orders that arrive over EDI. Answering "what happened to this order?" meant visiting each one.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>My part, and the agents' part</h2>
+      <div>
+        <p>I wrote the specification and set the rules: the archive may read from every system and write to none of them, and it has to stay inside a daily request budget for each source. AI coding agents wrote the code and the tests to that specification.</p>
+        <p>I decided what "finished" meant, then checked the result against real orders before trusting it.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>What I built</h2>
+      <div>
+        <figure class="flow">
+          <div class="flow-grid">
+            <div class="flow-col">
+              <div class="node a"><b>Shipping platform</b>labels and delivery status</div>
+              <div class="node b"><b>Order records</b>a read-only copy</div>
+              <div class="node c"><b>Retailer purchase orders</b>EDI documents and dropped PDFs</div>
+            </div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="node core"><b>Collector</b>runs every 15 minutes, inside a request budget, and backs off on errors</div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="flow-col">
+              <div class="node"><b>One folder per order</b>order record, proof-of-delivery PDF, raw evidence</div>
+              <div class="node"><b>Search index</b>backed up every night</div>
+            </div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="node out"><b>Search page</b>find any order by channel or delivery status</div>
+          </div>
+          <figcaption>Three sources go in, one collector files them, and the search page only reads what the collector wrote.</figcaption>
+        </figure>
+        <ul class="plain">
+          <li>An internal order record: the life of the order on one page, with its status and its EDI documents in a timeline.</li>
+          <li>A proof-of-delivery PDF that can be sent to a customer and carries only the brand's name.</li>
+          <li>The raw evidence: shipment records, label files and status snapshots.</li>
+          <li>A search page with plain status words, such as "In transit" or "No delivery scan", and filters for wholesale, retail, direct and marketplace orders.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>The result</h2>
+      <div>
+        <ul class="tally">
+          <li><b>2,008 of 2,008</b><span>retail purchase orders matched to a shipment record</span></li>
+          <li><b>66,910</b><span>orders filed on the first full run, covering 56,334 packages</span></li>
+          <li><b>0 missing</b><span>order records when 25,315 tracked orders were reconciled against the source</span></li>
+        </ul>
+        <p><b>How this was counted.</b> By the archive's own audit on its first full run, 27 October 2026. The collector and its nightly backup were both reporting healthy on 16 November 2026.</p>
+        <p><b>Not measured.</b> Hours saved, or the number of disputes settled with a document from the archive. I would rather leave those blank than estimate them.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Limits and what is next</h2>
+      <div>
+        <p>Direct connections to the carriers are still waiting on credentials, so some proofs are added by hand, by dropping a PDF into an inbox folder that the collector files. Connecting the carriers directly is the next step.</p>
+        <p class="stack">Built with Python, FastAPI, SQLite, the ShipStation API and generated PDFs.</p>
+      </div>
+    </section>
+
+    <div class="next-case">
+      <a class="next" href="support-escalation-sweep.html"><small>Next, case study 2 of 5</small><b>Support escalation sweep</b></a>
+      <a href="../index.html#work">Back to all five systems</a>
+    </div>
+  </div>

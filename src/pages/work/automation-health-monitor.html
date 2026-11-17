@@ -1,0 +1,106 @@
+<!--
+title: Automation inventory and health monitor, a case study by Eric Almaraz
+description: One inventory of 574 recurring jobs across three machines, each with an owner, a written procedure and a health check that runs every 30 minutes.
+og_title: 574 recurring jobs in one health-checked inventory
+class: case c2
+skip: Skip to the case study
+scripts: work.js
+-->
+  <section class="wrap case-top">
+    <p class="crumb"><a href="../index.html#work">Five systems</a>, case study 3 of 5, operations systems</p>
+    <h1>574 recurring jobs, one inventory, and I can see which ones are broken.</h1>
+    <p class="lede">Recurring work was scattered across three machines, with no single view of what runs, who owns it or what is broken. I built one inventory and put a health check behind it. On the day of the count it showed 28 jobs that needed repair.</p>
+  </section>
+
+  <div class="wrap">
+    <ul class="facts">
+      <li><b>My role</b><span>I set the ask, approved the specification and decide what counts as confirmed. AI agents wrote the code.</span></li>
+      <li><b>In service</b><span>Since October 2026, on checks first built that September</span></li>
+      <li><b>Setting</b><span>Every recurring job I run: a laptop, an office server and a second server</span></li>
+    </ul>
+
+    <section class="panel">
+      <h2>The situation</h2>
+      <div>
+        <p>I had four partial tools that each watched something, and they did not agree on what a project was or what healthy meant. A count one day found 59 scheduled tasks on one machine: 21 were leftovers from dead projects, and 11 were reporting a failure.</p>
+        <p>One task showed as failed while the page it served was answering normally. A scheduler's status is not the same as health, so I needed something that checked the real thing.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>My part, and the agents' part</h2>
+      <div>
+        <p>I asked for one page of everything that recurs, marked as automated, delegated or done by hand. I approved the specification, and I decide when an entry counts as confirmed.</p>
+        <p>AI agents did the research and the build. They drafted 546 entries from session records, notes and the schedulers themselves, in 25 worker runs. Those drafts are still marked for my review, and I say so below.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>What I built</h2>
+      <div>
+        <figure class="flow">
+          <div class="flow-grid three">
+            <div class="flow-col">
+              <div class="node a"><b>One file per job</b>what it is, who owns it, how it works, where to check it ran</div>
+              <div class="node b"><b>Schedulers on three machines</b>plus web probes</div>
+              <div class="node c"><b>"I ran it" stamps</b>for work done by hand or delegated</div>
+            </div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="node core"><b>Health sweep</b>every 30 minutes, and a full rebuild each night that flags any automation not in the inventory</div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="flow-col">
+              <div class="node out"><b>One page</b>every job with its current health</div>
+              <div class="node out"><b>Alerts to my phone</b>and a line in the morning brief</div>
+            </div>
+          </div>
+          <figcaption>A second layer gives each project a maintenance contract: what must be up, what must pass, and what may be fixed automatically after two failures in a row.</figcaption>
+        </figure>
+
+        <div class="demo" id="wall-demo">
+          <div class="wall-top">
+            <p class="demo-title">The wall on 16 November 2026. One tile per job.</p>
+            <div class="wall-actions" hidden>
+              <button type="button" class="btn" id="wall-sweep">Run the health sweep</button>
+              <button type="button" class="btn dark" id="wall-only" aria-pressed="false">Show only what needs repair</button>
+            </div>
+          </div>
+          <div class="wall" id="wall" hidden aria-hidden="true" data-ok="225" data-fail="28" data-warn="18" data-none="293" data-other="10"></div>
+          <ul class="wall-legend">
+            <li><b>225</b>healthy</li>
+            <li><b>28</b>failing, needs repair</li>
+            <li><b>18</b>warning or overdue</li>
+            <li><b>293</b>no health check yet</li>
+          </ul>
+          <p class="say" id="wall-say" role="status" aria-live="polite"></p>
+          <p class="scale-note">Real counts from the snapshot taken that evening. The other 10 of the 574 had no status in it. The order of the tiles is arbitrary.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>The result</h2>
+      <div>
+        <ul class="tally">
+          <li><b>574</b><span>recurring jobs in one inventory: 256 automated, 308 delegated, 10 done by hand</span></li>
+          <li><b>28 failing</b><span>jobs visible on one page on the day of the count</span></li>
+          <li><b>79 projects</b><span>with a maintenance contract, covering 285 recurring checks</span></li>
+        </ul>
+        <p><b>How this was counted.</b> From the health snapshot and the contract state files on the evening of 16 November 2026.</p>
+        <p><b>Not measured.</b> Time saved, and how much sooner a failure gets fixed now that it is visible.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Limits and what is next</h2>
+      <div>
+        <p>About half the inventory, 293 of 574 jobs, has no health check attached yet, and none of the AI-drafted entries has had my review. Today it is a working inventory and a drift detector. It is not yet a verified record, and I do not describe it as one.</p>
+        <p>Old alerts also linger: one check has been failing for more than 1,200 runs in a row. Raising an alert is easier than closing one, so the next step is to make stale findings expire or close themselves.</p>
+        <p class="stack">Built with Python, YAML, Windows Task Scheduler, launchd, systemd and static HTML.</p>
+      </div>
+    </section>
+
+    <div class="next-case">
+      <a class="next" href="ai-gateway.html"><small>Next, case study 4 of 5</small><b>No-metered-cost AI gateway</b></a>
+      <a href="../index.html#work">Back to all five systems</a>
+    </div>
+  </div>

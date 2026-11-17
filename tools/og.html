@@ -1,0 +1,49 @@
+<!doctype html>
+<!-- Source for docs/assets/og.png (1200x630 link-preview card). Rendered by tools/shots.sh. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>og card</title>
+<style>
+@font-face { font-family: "Bricolage Grotesque"; src: url("../docs/assets/fonts/BricolageGrotesque.woff2") format("woff2"); font-weight: 200 800; font-stretch: 75% 100%; }
+@font-face { font-family: "Instrument Sans"; src: url("../docs/assets/fonts/InstrumentSans.woff2") format("woff2"); font-weight: 400 700; font-stretch: 75% 100%; }
+html, body { margin: 0; }
+body { width: 1200px; height: 630px; overflow: hidden; background: #f3b63a; color: #17203a; font-family: "Instrument Sans", sans-serif; position: relative; }
+.left { position: absolute; left: 64px; top: 56px; width: 600px; }
+.name { margin: 0; font: 800 34px/1 "Bricolage Grotesque"; font-stretch: 90%; }
+.role { margin: 8px 0 0; font-size: 22px; font-weight: 500; }
+h1 { margin: 44px 0 0; font: 800 92px/.92 "Bricolage Grotesque"; font-stretch: 84%; letter-spacing: -0.025em; }
+h1 span { display: inline-block; background: #17203a; color: #f3b63a; padding: 0 .16em .05em; border-radius: .14em; rotate: -2deg; }
+.sub { margin: 30px 0 0; font-size: 27px; font-weight: 600; line-height: 1.25; max-width: 540px; }
+.console { position: absolute; right: 56px; top: 70px; width: 420px; height: 470px; background: #17203a; border-radius: 34px; box-shadow: 0 -8px 0 #0d1430 inset, 0 12px 0 #0d1430, 0 40px 50px -18px rgba(23, 32, 58, .6); padding: 30px 28px; box-sizing: border-box; }
+.row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; height: 250px; }
+.track { position: relative; background: #0d1430; border-radius: 14px; box-shadow: inset 0 5px 12px rgba(0, 0, 0, .6); }
+.track i { position: absolute; left: 6px; right: 6px; top: 30%; height: 10px; border-radius: 6px; background: var(--c); box-shadow: 0 0 18px var(--c); }
+.sw { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 26px; }
+.rocker { position: relative; height: 34px; border-radius: 18px; background: color-mix(in srgb, var(--c) 35%, #060a1c); }
+.rocker b { position: absolute; right: 3px; top: 3px; width: 28px; height: 28px; border-radius: 50%; background: radial-gradient(circle at 35% 28%, #fff, var(--c) 65%); box-shadow: 0 4px 0 color-mix(in srgb, var(--c) 55%, #000); }
+.cap { margin: 30px 0 0; color: #fff7e8; font: 800 30px/1.05 "Bricolage Grotesque"; font-stretch: 86%; }
+.cap small { display: block; margin-top: 8px; font: 500 18px/1.2 "Instrument Sans"; color: #cdd5ec; }
+.c0 { --c: #f26a4b; } .c1 { --c: #8ec5f0; } .c2 { --c: #f6d463; } .c3 { --c: #c5b5f2; } .c4 { --c: #7fd6ad; }
+.url { position: absolute; left: 64px; bottom: 44px; font-size: 24px; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <p class="name">Eric Almaraz</p>
+    <p class="role">Director of Operations</p>
+    <h1><span>8:00 a.m.</span> Five kinds of trouble.</h1>
+    <p class="sub">Five systems I built and run to catch them. Play the morning, then read the results.</p>
+  </div>
+  <p class="url">ericalmaraz.com</p>
+  <div class="console">
+    <div class="row">
+      <div class="track c0"><i></i></div><div class="track c1"><i></i></div><div class="track c2"><i></i></div><div class="track c3"><i></i></div><div class="track c4"><i></i></div>
+    </div>
+    <div class="sw">
+      <div class="rocker c0"><b></b></div><div class="rocker c1"><b></b></div><div class="rocker c2"><b></b></div><div class="rocker c3"><b></b></div><div class="rocker c4"><b></b></div>
+    </div>
+    <p class="cap">All five on the job.<small>Operations systems and AI automation</small></p>
+  </div>
+</body>
+</html>

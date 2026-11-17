@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support escalation sweep, a case study by Eric Almaraz</title>
+<meta name="description" content="An AI step drafts the support escalation tracker and ordinary code checks every draft before it is published. Built to run twice each weekday.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://ericalmaraz.com/work/support-escalation-sweep.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Eric Almaraz">
+<meta property="og:title" content="AI drafts the escalation list. Code checks it before anything is published.">
+<meta property="og:description" content="An AI step drafts the support escalation tracker and ordinary code checks every draft before it is published. Built to run twice each weekday.">
+<meta property="og:url" content="https://ericalmaraz.com/work/support-escalation-sweep.html">
+<meta property="og:image" content="https://ericalmaraz.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f3b63a">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<script>(function(){var d=document.documentElement,p=null;try{p=localStorage.getItem('ea-motion')}catch(e){}var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;d.className+=' js '+((p?p==='on':!r)?'motion':'calm');})();</script>
+</head>
+<body class="case c1">
+<a class="skip" href="#main">Skip to the case study</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7.500 12 3l9 4.500v9L12 21l-9-4.500zM3 7.500l9 4.500 9-4.500M12 12v9" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-bubble" viewBox="0 0 24 24"><path d="M4 5h16v11H11l-5 4v-4H4z" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.500 21.500 20h-19zM12 10v4.500M12 17v.500" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2.500l2.400 7.100 7.100 2.400-7.100 2.400L12 21.500l-2.400-7.100L2.500 12l7.100-2.400z" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6.500L21 7" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="wrap masthead">
+  <p class="name"><a href="../index.html">Eric Almaraz</a><small>Director of Operations, Central Texas</small></p>
+  <nav aria-label="Site">
+    <ul>
+      <li><a href="../index.html#work">Work</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><button type="button" class="motion-toggle" data-motion-toggle hidden>Play with motion</button></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+<section class="wrap case-top">
+    <p class="crumb"><a href="../index.html#work">Five systems</a>, case study 2 of 5, automation and AI</p>
+    <h1>AI drafts the escalation list. Code checks it before anything is published.</h1>
+    <p class="lede">Covering support escalations meant rebuilding the tracker by hand twice a day. I built a sweep to keep the tracker current, with three rules every AI draft must pass, and it replaced the sessions I had been starting myself.</p>
+  </section>
+
+  <div class="wrap">
+    <ul class="facts">
+      <li><b>My role</b><span>I set the rules and approved the design. AI agents wrote the code, tests and daily fixes.</span></li>
+      <li><b>First run</b><span>October 2026</span></li>
+      <li><b>Setting</b><span>Customer support escalations across several consumer brands</span></li>
+    </ul>
+
+    <section class="panel">
+      <h2>The situation</h2>
+      <div>
+        <p>I was covering support escalations across several brands. A list of tickets to escalate arrived twice a day. Each time, the data had to be refreshed, the list read, the tracker rules applied, reply drafts written and the tracker page rebuilt.</p>
+        <p>I started seven of those sweeps myself in two days, each a separate AI session of 5 to 12 minutes. I wanted it to happen on its own, with a trigger that could not miss a list that landed just after a sweep.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>My part, and the agents' part</h2>
+      <div>
+        <p>I supplied the rules. A ticket counts as done only when a person on the team has replied after the customer's last message. A draft may not contain a blank or a placeholder. The system never replies to a customer and never contacts anyone: it prepares drafts and tells me what needs me.</p>
+        <p>I approved the design. AI agents wrote the code, the tests and the daily fixes under those rulings. The judgment step inside each sweep is itself an AI job, which is exactly why the last word goes to ordinary code.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>What I built</h2>
+      <div>
+        <figure class="flow">
+          <div class="flow-grid">
+            <div class="flow-col">
+              <div class="node a"><b>Support desk</b>a read-only copy, with shipping data</div>
+              <div class="node b"><b>Escalation list</b>arrives by email twice a day</div>
+              <div class="node c"><b>My labels and notes</b></div>
+            </div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="node core"><b>AI step</b>proposes edits, with access to three working copies and nothing else</div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="node core"><b>Checker</b>ordinary code. Publish only if every rule passes; otherwise pause and alert me.</div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="flow-col">
+              <div class="node out"><b>Tracker and "do now" list</b>web page and PDF</div>
+              <div class="node out"><b>Card console</b>one card per customer, with copy-ready drafts</div>
+            </div>
+          </div>
+          <figcaption>The AI step can only touch working copies. Nothing reaches the live tracker without passing the checker.</figcaption>
+        </figure>
+
+        <div class="demo checker" id="checker">
+          <p class="demo-title">Three drafts from the AI step. You are the checker.</p>
+          <ol class="drafts">
+            <li class="draft" data-verdict="pass">
+              <div><b class="t">Draft 1</b><span class="what">Updates the notes on two open cards and adds one new card at the end.</span></div>
+              <button type="button" class="btn" hidden>Check it<span class="vh">: draft 1</span></button>
+              <p class="verdict pass"><b>Pass</b>Nothing frozen was touched and every card kept its number. Published.</p>
+            </li>
+            <li class="draft" data-verdict="reject">
+              <div><b class="t">Draft 2</b><span class="what">Removes a closed card and renumbers the ones after it to tidy the list.</span></div>
+              <button type="button" class="btn" hidden>Check it<span class="vh">: draft 2</span></button>
+              <p class="verdict reject"><b>Reject</b>Card numbers are permanent, because people refer to a case by its number. Held back.</p>
+            </li>
+            <li class="draft" data-verdict="reject">
+              <div><b class="t">Draft 3</b><span class="what">Rewrites a paragraph inside a block that is marked frozen.</span></div>
+              <button type="button" class="btn" hidden>Check it<span class="vh">: draft 3</span></button>
+              <p class="verdict reject"><b>Reject</b>Frozen blocks may not change. Held back, and sweeps pause until I look.</p>
+            </li>
+          </ol>
+          <p class="say" id="checker-say" role="status" aria-live="polite"></p>
+          <p class="scale-note">An illustration of the rules, with made-up drafts. The third rule is that the live page must not have changed while the sweep ran.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>The result</h2>
+      <div>
+        <ul class="tally">
+          <li><b>3 rules</b><span>every AI draft has to pass before it is published</span></li>
+          <li><b>46 sweeps</b><span>in its first week: 37 completed and 9 failed. A failed sweep publishes nothing.</span></li>
+          <li><b>7 sessions</b><span>started by me in two days, before it ran on its own</span></li>
+        </ul>
+        <p><b>How this was counted.</b> The sweep counts come from the run summaries it wrote between 20 and 27 October 2026, its first week. The seven earlier sessions come from a project note. After that it moved to an office server, and I am not quoting run counts from there because I have not re-counted them. It is built to run twice each weekday and again shortly after a new list arrives.</p>
+        <p><b>Not measured.</b> Hours saved, and how many tickets were answered sooner because of it.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Limits and what is next</h2>
+      <div>
+        <p>It depends on an AI service with usage limits. When it hits one, it retries on a second account and then waits, so a sweep can be late. It cannot publish something unchecked.</p>
+        <p>One step sorts tickets by the words customers use, and it took several rounds of tests written to fool it before the false alarms dropped. I only widen it now by adding a test for what it must not catch first.</p>
+        <p class="stack">Built with Python, SQLite, a headless Claude job, generated PDFs and a scheduled service on an office server.</p>
+      </div>
+    </section>
+
+    <div class="next-case">
+      <a class="next" href="automation-health-monitor.html"><small>Next, case study 3 of 5</small><b>Automation inventory and health monitor</b></a>
+      <a href="../index.html#work">Back to all five systems</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="colophon" id="contact">
+  <div class="wrap">
+    <div class="row">
+      <p class="big">Want the full walkthrough?</p>
+      <ul>
+        <li><a class="cta" href="https://www.linkedin.com/in/eric-almaraz-40717122" rel="me noopener">Message me on LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="fine">Company, brand and customer names are left out on purpose. I am glad to go through any of this in detail in an interview. Each case study says when its figures were counted. Updated 16 November 2026.</p>
+    <ul class="foot-nav">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#work">The five systems</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../assets/site.js" defer></script>
+<script src="../assets/work.js" defer></script>
+</body>
+</html>

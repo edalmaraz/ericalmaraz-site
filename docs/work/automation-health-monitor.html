@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automation inventory and health monitor, a case study by Eric Almaraz</title>
+<meta name="description" content="One inventory of 574 recurring jobs across three machines, each with an owner, a written procedure and a health check that runs every 30 minutes.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://ericalmaraz.com/work/automation-health-monitor.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Eric Almaraz">
+<meta property="og:title" content="574 recurring jobs in one health-checked inventory">
+<meta property="og:description" content="One inventory of 574 recurring jobs across three machines, each with an owner, a written procedure and a health check that runs every 30 minutes.">
+<meta property="og:url" content="https://ericalmaraz.com/work/automation-health-monitor.html">
+<meta property="og:image" content="https://ericalmaraz.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f3b63a">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<script>(function(){var d=document.documentElement,p=null;try{p=localStorage.getItem('ea-motion')}catch(e){}var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;d.className+=' js '+((p?p==='on':!r)?'motion':'calm');})();</script>
+</head>
+<body class="case c2">
+<a class="skip" href="#main">Skip to the case study</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7.500 12 3l9 4.500v9L12 21l-9-4.500zM3 7.500l9 4.500 9-4.500M12 12v9" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-bubble" viewBox="0 0 24 24"><path d="M4 5h16v11H11l-5 4v-4H4z" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.500 21.500 20h-19zM12 10v4.500M12 17v.500" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2.500l2.400 7.100 7.100 2.400-7.100 2.400L12 21.500l-2.400-7.100L2.500 12l7.100-2.400z" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6.500L21 7" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="wrap masthead">
+  <p class="name"><a href="../index.html">Eric Almaraz</a><small>Director of Operations, Central Texas</small></p>
+  <nav aria-label="Site">
+    <ul>
+      <li><a href="../index.html#work">Work</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><button type="button" class="motion-toggle" data-motion-toggle hidden>Play with motion</button></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+<section class="wrap case-top">
+    <p class="crumb"><a href="../index.html#work">Five systems</a>, case study 3 of 5, operations systems</p>
+    <h1>574 recurring jobs, one inventory, and I can see which ones are broken.</h1>
+    <p class="lede">Recurring work was scattered across three machines, with no single view of what runs, who owns it or what is broken. I built one inventory and put a health check behind it. On the day of the count it showed 28 jobs that needed repair.</p>
+  </section>
+
+  <div class="wrap">
+    <ul class="facts">
+      <li><b>My role</b><span>I set the ask, approved the specification and decide what counts as confirmed. AI agents wrote the code.</span></li>
+      <li><b>In service</b><span>Since October 2026, on checks first built that September</span></li>
+      <li><b>Setting</b><span>Every recurring job I run: a laptop, an office server and a second server</span></li>
+    </ul>
+
+    <section class="panel">
+      <h2>The situation</h2>
+      <div>
+        <p>I had four partial tools that each watched something, and they did not agree on what a project was or what healthy meant. A count one day found 59 scheduled tasks on one machine: 21 were leftovers from dead projects, and 11 were reporting a failure.</p>
+        <p>One task showed as failed while the page it served was answering normally. A scheduler's status is not the same as health, so I needed something that checked the real thing.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>My part, and the agents' part</h2>
+      <div>
+        <p>I asked for one page of everything that recurs, marked as automated, delegated or done by hand. I approved the specification, and I decide when an entry counts as confirmed.</p>
+        <p>AI agents did the research and the build. They drafted 546 entries from session records, notes and the schedulers themselves, in 25 worker runs. Those drafts are still marked for my review, and I say so below.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>What I built</h2>
+      <div>
+        <figure class="flow">
+          <div class="flow-grid three">
+            <div class="flow-col">
+              <div class="node a"><b>One file per job</b>what it is, who owns it, how it works, where to check it ran</div>
+              <div class="node b"><b>Schedulers on three machines</b>plus web probes</div>
+              <div class="node c"><b>"I ran it" stamps</b>for work done by hand or delegated</div>
+            </div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="node core"><b>Health sweep</b>every 30 minutes, and a full rebuild each night that flags any automation not in the inventory</div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="flow-col">
+              <div class="node out"><b>One page</b>every job with its current health</div>
+              <div class="node out"><b>Alerts to my phone</b>and a line in the morning brief</div>
+            </div>
+          </div>
+          <figcaption>A second layer gives each project a maintenance contract: what must be up, what must pass, and what may be fixed automatically after two failures in a row.</figcaption>
+        </figure>
+
+        <div class="demo" id="wall-demo">
+          <div class="wall-top">
+            <p class="demo-title">The wall on 16 November 2026. One tile per job.</p>
+            <div class="wall-actions" hidden>
+              <button type="button" class="btn" id="wall-sweep">Run the health sweep</button>
+              <button type="button" class="btn dark" id="wall-only" aria-pressed="false">Show only what needs repair</button>
+            </div>
+          </div>
+          <div class="wall" id="wall" hidden aria-hidden="true" data-ok="225" data-fail="28" data-warn="18" data-none="293" data-other="10"></div>
+          <ul class="wall-legend">
+            <li><b>225</b>healthy</li>
+            <li><b>28</b>failing, needs repair</li>
+            <li><b>18</b>warning or overdue</li>
+            <li><b>293</b>no health check yet</li>
+          </ul>
+          <p class="say" id="wall-say" role="status" aria-live="polite"></p>
+          <p class="scale-note">Real counts from the snapshot taken that evening. The other 10 of the 574 had no status in it. The order of the tiles is arbitrary.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>The result</h2>
+      <div>
+        <ul class="tally">
+          <li><b>574</b><span>recurring jobs in one inventory: 256 automated, 308 delegated, 10 done by hand</span></li>
+          <li><b>28 failing</b><span>jobs visible on one page on the day of the count</span></li>
+          <li><b>79 projects</b><span>with a maintenance contract, covering 285 recurring checks</span></li>
+        </ul>
+        <p><b>How this was counted.</b> From the health snapshot and the contract state files on the evening of 16 November 2026.</p>
+        <p><b>Not measured.</b> Time saved, and how much sooner a failure gets fixed now that it is visible.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Limits and what is next</h2>
+      <div>
+        <p>About half the inventory, 293 of 574 jobs, has no health check attached yet, and none of the AI-drafted entries has had my review. Today it is a working inventory and a drift detector. It is not yet a verified record, and I do not describe it as one.</p>
+        <p>Old alerts also linger: one check has been failing for more than 1,200 runs in a row. Raising an alert is easier than closing one, so the next step is to make stale findings expire or close themselves.</p>
+        <p class="stack">Built with Python, YAML, Windows Task Scheduler, launchd, systemd and static HTML.</p>
+      </div>
+    </section>
+
+    <div class="next-case">
+      <a class="next" href="ai-gateway.html"><small>Next, case study 4 of 5</small><b>No-metered-cost AI gateway</b></a>
+      <a href="../index.html#work">Back to all five systems</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="colophon" id="contact">
+  <div class="wrap">
+    <div class="row">
+      <p class="big">Want the full walkthrough?</p>
+      <ul>
+        <li><a class="cta" href="https://www.linkedin.com/in/eric-almaraz-40717122" rel="me noopener">Message me on LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="fine">Company, brand and customer names are left out on purpose. I am glad to go through any of this in detail in an interview. Each case study says when its figures were counted. Updated 16 November 2026.</p>
+    <ul class="foot-nav">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#work">The five systems</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../assets/site.js" defer></script>
+<script src="../assets/work.js" defer></script>
+</body>
+</html>

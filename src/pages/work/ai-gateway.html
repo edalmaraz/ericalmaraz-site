@@ -1,0 +1,104 @@
+<!--
+title: No-metered-cost AI gateway, a case study by Eric Almaraz
+description: A local gateway routes my automations' AI requests to a flat-rate subscription or a local model, falls back automatically, and logs which lane answered. 14,639 calls in seven weeks (8,448 from one batch job), none on a pay-per-use lane.
+og_title: My automations' AI calls go through one gateway, and none to a pay-per-use service
+class: case c3
+skip: Skip to the case study
+scripts: work.js
+-->
+  <section class="wrap case-top">
+    <p class="crumb"><a href="../index.html#work">Five systems</a>, case study 4 of 5, automation and AI</p>
+    <h1>My automations' AI calls go through one gateway, and none to a pay-per-use service.</h1>
+    <p class="lede">My automations all need an AI model, under two rules: no metered spend, and no single provider that can stop everything. I had the routing layer built to my rules. In seven weeks it handled 14,639 calls (8,448 of them from one batch job) and answered 97.9% of them.</p>
+  </section>
+
+  <div class="wrap">
+    <ul class="facts">
+      <li><b>My role</b><span>I set the two rules and approve every routing change. AI agents wrote the code and tests.</span></li>
+      <li><b>In service</b><span>Since September 2026</span></li>
+      <li><b>Setting</b><span>31 scripts and apps that need an AI model</span></li>
+    </ul>
+
+    <section class="panel">
+      <h2>The situation</h2>
+      <div>
+        <p>I had a standing rule of no pay-per-use AI spend: a flat-rate subscription or a model I run myself, nothing metered. Then I looked at how much of my work depended on one provider and did not like the answer.</p>
+        <p>The fix was to own the routing. Every task should have two live ways to get an answer, and I should be able to see afterwards which one was used.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>My part, and the agents' part</h2>
+      <div>
+        <p>I set the no-metered-spend rule and the two-live-lanes principle, and I approved each step. AI agents built the gateway, the routing table and its test suite.</p>
+        <p>A weekly job proposes routing changes. Nothing changes until I approve it from my phone.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>What I built</h2>
+      <div>
+        <figure class="flow">
+          <div class="flow-grid three">
+            <div class="node a"><b>Any script or app</b>asks for "smart", "cheap" or "fast" and gives its own name</div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="node core"><b>Gateway</b>walks the lanes in order, skips any that are off or near their limit, falls back on failure</div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="flow-col">
+              <div class="node out"><b>The answer</b>stamped with the lane, the model and how far it fell back</div>
+              <div class="node out"><b>Usage log</b>one line per call, and a status page</div>
+            </div>
+          </div>
+          <figcaption>No lane in the routing table can reach a pay-per-use service, and a request that names such a model is rejected.</figcaption>
+        </figure>
+
+        <div class="demo" id="gateway">
+          <p class="demo-title">Put a lane at its limit, then send a request.</p>
+          <ol class="rungs">
+            <li class="rung" data-name="the flat-rate subscription">
+              <div><b>Flat-rate subscription</b><span class="d">Tried first.</span></div>
+              <button type="button" class="avail" role="switch" aria-checked="true" aria-label="Flat-rate subscription available" hidden><span class="rocker" aria-hidden="true"><span class="knob"></span></span><span class="st" aria-hidden="true">available</span></button>
+            </li>
+            <li class="rung" data-name="the second subscription account">
+              <div><b>Second subscription account</b><span class="d">Used when the first is at its limit.</span></div>
+              <button type="button" class="avail" role="switch" aria-checked="true" aria-label="Second subscription account available" hidden><span class="rocker" aria-hidden="true"><span class="knob"></span></span><span class="st" aria-hidden="true">available</span></button>
+            </li>
+            <li class="rung" data-name="the local model on a GPU workstation">
+              <div><b>Local model on a GPU workstation</b><span class="d">Runs on my own hardware. Tried last.</span></div>
+              <button type="button" class="avail" role="switch" aria-checked="true" aria-label="Local model available" hidden><span class="rocker" aria-hidden="true"><span class="knob"></span></span><span class="st" aria-hidden="true">available</span></button>
+            </li>
+          </ol>
+          <button type="button" class="btn" id="gw-send" hidden>Send a request</button>
+          <p class="say" id="gw-say" role="status" aria-live="polite"></p>
+          <p class="scale-note">An illustration of the order the gateway tries. Each kind of request has its own ordered list of lanes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>The result</h2>
+      <div>
+        <ul class="tally">
+          <li><b>14,639</b><span>calls from 31 callers in seven weeks (8,448 from one batch job), 97.9% answered</span></li>
+          <li><b>0 metered</b><span>no pay-per-use lane appears anywhere in the log</span></li>
+          <li><b>1,129</b><span>calls fell back to another lane automatically</span></li>
+        </ul>
+        <p><b>How this was counted.</b> By reading the gateway's own usage log, 28 September to 16 November 2026. One caveat matters: a single batch job made 8,448 of those calls, almost all on the local model. Without it there were 6,191 calls, 96.6% answered, and most ran on the subscription lanes.</p>
+        <p><b>Not measured.</b> Dollars saved. The zero is what the log shows, and I have not audited it against a bill.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Limits and what is next</h2>
+      <div>
+        <p>The gateway's own test suite is currently reported as failing, so I do not quote its test counts. The next job is to fix or retire those checks.</p>
+        <p>The no-metered-spend claim rests on the routing design and the call log. A check from the billing side would make it stronger, and that is the step after.</p>
+        <p class="stack">Built with Python, FastAPI, Ollama for local models, a command-line Claude subscription and a JSONL log.</p>
+      </div>
+    </section>
+
+    <div class="next-case">
+      <a class="next" href="daily-operations-steward.html"><small>Next, case study 5 of 5</small><b>Daily operations steward</b></a>
+      <a href="../index.html#work">Back to all five systems</a>
+    </div>
+  </div>

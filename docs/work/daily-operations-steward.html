@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily operations steward, a case study by Eric Almaraz</title>
+<meta name="description" content="A scheduled service that gathers signals across a multi-brand operation and sends one morning brief, an end-of-day wrap and phone alerts. 1,308 events logged in seven weeks.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://ericalmaraz.com/work/daily-operations-steward.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Eric Almaraz">
+<meta property="og:title" content="One brief each morning that says what needs me">
+<meta property="og:description" content="A scheduled service that gathers signals across a multi-brand operation and sends one morning brief, an end-of-day wrap and phone alerts. 1,308 events logged in seven weeks.">
+<meta property="og:url" content="https://ericalmaraz.com/work/daily-operations-steward.html">
+<meta property="og:image" content="https://ericalmaraz.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f3b63a">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<script>(function(){var d=document.documentElement,p=null;try{p=localStorage.getItem('ea-motion')}catch(e){}var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;d.className+=' js '+((p?p==='on':!r)?'motion':'calm');})();</script>
+</head>
+<body class="case c4">
+<a class="skip" href="#main">Skip to the case study</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7.500 12 3l9 4.500v9L12 21l-9-4.500zM3 7.500l9 4.500 9-4.500M12 12v9" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-bubble" viewBox="0 0 24 24"><path d="M4 5h16v11H11l-5 4v-4H4z" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.500 21.500 20h-19zM12 10v4.500M12 17v.500" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2.500l2.400 7.100 7.100 2.400-7.100 2.400L12 21.500l-2.400-7.100L2.500 12l7.100-2.400z" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6.500L21 7" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="wrap masthead">
+  <p class="name"><a href="../index.html">Eric Almaraz</a><small>Director of Operations, Central Texas</small></p>
+  <nav aria-label="Site">
+    <ul>
+      <li><a href="../index.html#work">Work</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><button type="button" class="motion-toggle" data-motion-toggle hidden>Play with motion</button></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+<section class="wrap case-top">
+    <p class="crumb"><a href="../index.html#work">Five systems</a>, case study 5 of 5, automation and AI</p>
+    <h1>One brief each morning that says what needs me.</h1>
+    <p class="lede">Running several brands across a support desk, shipping, inventory, email and a calendar, I had no single place that said what needed attention today. I built a steward that gathers it and tells me. In seven weeks it sent 36 morning briefs and logged 1,308 events.</p>
+  </section>
+
+  <div class="wrap">
+    <ul class="facts">
+      <li><b>My role</b><span>I asked for it and decide what each alert should do. AI agents wrote the code.</span></li>
+      <li><b>In service</b><span>Since July 2026, rebuilt and extended that September</span></li>
+      <li><b>Setting</b><span>One operations lead, several brands, many tools</span></li>
+    </ul>
+
+    <section class="panel">
+      <h2>The situation</h2>
+      <div>
+        <p>The information I needed each morning existed, but it lived in a support desk, a shipping platform, an inventory system, an inbox and a calendar. Checking each one by hand took time, and anything I did not check stayed unseen.</p>
+        <p>I wanted the reverse: the systems report to me, in one message, ranked by what needs me first.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>My part, and the agents' part</h2>
+      <div>
+        <p>I asked for it, starting with the morning brief, and I decide what each kind of alert should do. One ruling of mine: an item that is merely due soon stays silent, so the brief does not turn into noise.</p>
+        <p>AI agents wrote the code, first as a 13-task plan in July 2026 and then in a larger build-out that September. Its summaries are written by AI jobs, each with its own written instructions for the topic, sent through the <a href="ai-gateway.html">gateway</a>.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>What I built</h2>
+      <div>
+        <figure class="flow">
+          <div class="flow-grid three">
+            <div class="flow-col">
+              <div class="node a"><b>Scheduled checks</b>orders, stock, shipping dates, quiet channels</div>
+              <div class="node b"><b>Calendar and meeting notes</b></div>
+              <div class="node c"><b>Messages from my phone</b>typed or spoken</div>
+            </div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="node core"><b>Steward</b>removes repeats, ranks what is open, summarizes behind a quality check, escalates by due date</div>
+            <div class="arrow" aria-hidden="true"></div>
+            <div class="flow-col">
+              <div class="node out"><b>Morning brief and end-of-day wrap</b></div>
+              <div class="node out"><b>Phone alerts</b>with Done, Snooze and Dismiss</div>
+              <div class="node out"><b>Event log</b>everything it saw and did</div>
+            </div>
+          </div>
+          <figcaption>It keeps a list of open situations, so the same issue is raised once and then tracked, not repeated every morning.</figcaption>
+        </figure>
+
+        <div class="demo brief-demo" id="brief">
+          <p class="demo-title">It is early. Choose what the steward watches, then build the brief.</p>
+          <ul class="sources" hidden>
+            <li><button type="button" class="chip" aria-pressed="true" data-src="support">Support desk</button></li>
+            <li><button type="button" class="chip" aria-pressed="true" data-src="shipping">Shipping</button></li>
+            <li><button type="button" class="chip" aria-pressed="true" data-src="inventory">Inventory</button></li>
+            <li><button type="button" class="chip" aria-pressed="true" data-src="email">Email</button></li>
+            <li><button type="button" class="chip" aria-pressed="true" data-src="calendar">Calendar</button></li>
+          </ul>
+          <button type="button" class="btn" id="brief-build" hidden>Build the morning brief</button>
+          <div class="sheet">
+            <h3>Morning brief</h3>
+            <p class="empty">Nothing yet. Build the brief to fill this in.</p>
+            <ol>
+              <li data-src="support"><b>Support.</b> Two escalations are waiting on a reply from us.</li>
+              <li data-src="shipping"><b>Shipping.</b> One wholesale order has a ship-by date of today.</li>
+              <li data-src="inventory"><b>Inventory.</b> One item has dropped below its reorder point.</li>
+              <li data-src="email"><b>Email.</b> Three messages need an answer. The rest can wait.</li>
+              <li data-src="calendar"><b>Calendar.</b> Two meetings, the first at 10:00.</li>
+            </ol>
+            <p class="sent">Sent to my phone</p>
+          </div>
+          <p class="say" id="brief-say" role="status" aria-live="polite"></p>
+          <p class="scale-note">An illustration with made-up lines. The real brief is built from live data.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>The result</h2>
+      <div>
+        <ul class="tally">
+          <li><b>36 briefs</b><span>sent in the morning, and 28 end-of-day wraps</span></li>
+          <li><b>1,308</b><span>events logged in seven weeks, from 29 September to 16 November 2026</span></li>
+          <li><b>34 situations</b><span>opened for me to act on, and 53 escalations raised</span></li>
+        </ul>
+        <p><b>How this was counted.</b> From the steward's own event log on 16 November 2026.</p>
+        <p><b>Not measured.</b> Time saved each morning, and how many problems were caught earlier because of a brief.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Limits and what is next</h2>
+      <div>
+        <p>The log shows 34 situations opened and only 2 closed. Either I am closing them somewhere the log does not see, or open items are piling up. I need to find out which before I claim it keeps my list clean.</p>
+        <p>It is built for one user, me. Two of its own automated checks are currently reported as failing, and fixing those comes before adding anything new.</p>
+        <p class="stack">Built with Python, SQLite, Windows Task Scheduler, a phone messaging bot, headless Claude jobs and a local model for summaries.</p>
+      </div>
+    </section>
+
+    <div class="next-case">
+      <a class="next" href="proof-of-delivery-archive.html"><small>Back to case study 1 of 5</small><b>Proof-of-delivery archive</b></a>
+      <a href="../index.html#work">Back to all five systems</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="colophon" id="contact">
+  <div class="wrap">
+    <div class="row">
+      <p class="big">Want the full walkthrough?</p>
+      <ul>
+        <li><a class="cta" href="https://www.linkedin.com/in/eric-almaraz-40717122" rel="me noopener">Message me on LinkedIn</a></li>
+      </ul>
+    </div>
+    <p class="fine">Company, brand and customer names are left out on purpose. I am glad to go through any of this in detail in an interview. Each case study says when its figures were counted. Updated 16 November 2026.</p>
+    <ul class="foot-nav">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#work">The five systems</a></li>
+      <li><a href="../about.html">About</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../assets/site.js" defer></script>
+<script src="../assets/work.js" defer></script>
+</body>
+</html>
