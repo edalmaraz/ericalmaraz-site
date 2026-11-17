@@ -54,7 +54,7 @@ switches to the animated version and remembers the choice. Nothing depends on a 
 
 ## Launch checklist
 
-The repository ships in preview mode. To go live on the custom domain:
+The site is live on ericalmaraz.com; `py -3.13 tools/build.py` without `--launch` produces a preview build. To go live on the custom domain (already done once; repeat only for a rebuild):
 
 1. **Decide whether to add a resume link.** There is none today. If one is added, it has to
    fit the privacy rules above.
